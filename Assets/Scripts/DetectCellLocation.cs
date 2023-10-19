@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,7 +9,9 @@ public class DetectCellLocation : MonoBehaviour
     public GridLayout gridLayout;
     public Tilemap tilemap;
     public TileBase origin;
-    public TileBase Destino;
+    public TileBase end;
+
+    public FloodFill startpoint, endpoint;
 
     private void Update()
     {
@@ -20,19 +24,24 @@ public class DetectCellLocation : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Origen" + cellPosition);
             var actualTile = tilemap.GetTile(cellPosition);
             if (actualTile == null) { return; }
+            Debug.Log("Origen " + cellPosition);
+            startpoint.startingPoint = cellPosition;
+            TileFlags flags = tilemap.GetTileFlags(cellPosition);
             tilemap.SetTile(cellPosition, origin);
+            tilemap.SetTileFlags(cellPosition, flags);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Destino" + cellPosition);
             var actualTile = tilemap.GetTile(cellPosition);
             if (actualTile == null) { return; }
-            tilemap.SetTile(cellPosition, Destino);
+            Debug.Log("Destino " + cellPosition);
+            endpoint.objective = cellPosition;
+            TileFlags flags = tilemap.GetTileFlags(cellPosition);
+            tilemap.SetTile(cellPosition, end);
+            tilemap.SetTileFlags(cellPosition, flags);
         }
     }
-
 }

@@ -2254,6 +2254,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224364734}
+  - component: {fileID: 224364736}
   - component: {fileID: 224364735}
   m_Layer: 0
   m_Name: Click
@@ -2286,13 +2287,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 224364732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1c0b3ae24cd92a44a5c436860ed6fb2, type: 3}
+  m_Script: {fileID: 11500000, guid: 25c7bac3240d9ce44a9d76bc89249d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingPoint: {x: 0, y: 0, z: 0}
+  objective: {x: 0, y: 0, z: 0}
   tilemap: {fileID: 42666324}
-  tileOrigen: {fileID: 11400000, guid: c81fcb49d18c30f4f8b3ac11b9151dc3, type: 2}
-  tileFinal: {fileID: 11400000, guid: 84da81ddc83dc3a43b4947910f195f6c, type: 2}
+  flood: {fileID: 11400000, guid: 84da81ddc83dc3a43b4947910f195f6c, type: 2}
+  path: {fileID: 11400000, guid: c81fcb49d18c30f4f8b3ac11b9151dc3, type: 2}
+  delay: 0
+  canstop: 0
+  canRun: 1
+--- !u!114 &224364736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224364732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 562205cedebb38843bee2be0add15180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   gridLayout: {fileID: 1900820715}
+  tilemap: {fileID: 42666324}
+  origin: {fileID: 11400000, guid: c81fcb49d18c30f4f8b3ac11b9151dc3, type: 2}
+  end: {fileID: 11400000, guid: 84da81ddc83dc3a43b4947910f195f6c, type: 2}
+  startpoint: {fileID: 224364735}
+  endpoint: {fileID: 224364735}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2329,7 +2352,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.7924528, g: 0.30277678, b: 0.7582557, a: 0}
+  m_BackGroundColor: {r: 0.8584906, g: 0.6762638, b: 0.84537023, a: 0.8235294}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
