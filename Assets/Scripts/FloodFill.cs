@@ -5,23 +5,24 @@ using UnityEngine.Tilemaps;
 
 public class FloodFill : MonoBehaviour
 {
+    public Tilemap tilemap;
+    public TileBase camino;
     public Queue<Vector3Int> frontier = new();
     public Vector3Int startingPoint;
-    public Vector3Int objective;
+    public Vector3Int objetivo;
     public Set reached = new Set();
-    public Tilemap tilemap;
     public TileBase flood;
-    public TileBase path;
     public float delay;
     public Dictionary<Vector3Int, Vector3Int> cameFrom = new();
-    public bool canstop;
-    public bool canRun = true;
+    public bool detener;
+    public bool mover = true;
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canRun)
+        if (Input.GetKeyDown(KeyCode.Space) && mover)
         {
             FloodFillStartCoroutine();
-            canRun = false;
+            mover = false;
         }
     }
     public void FloodFillStartCoroutine()
@@ -38,12 +39,12 @@ public class FloodFill : MonoBehaviour
             Vector3Int current = frontier.Dequeue();
             Debug.Log(frontier.Count);
             List<Vector3Int> neighbours = GetNeighbours(current);
-            if (current == objective && canstop) break;
+            if (current == objetivo && detener) break;
             foreach (Vector3Int next in neighbours)
             {
                 if (!reached.set.Contains(next) && tilemap.GetSprite(next) != null)
                 {
-                    if (next != startingPoint && next != objective) { tilemap.SetTile(next, flood); }
+                    if (next != startingPoint && next != objetivo) { tilemap.SetTile(next, flood); }
                     reached.Add(next);
                     frontier.Enqueue(next);
                     if (!cameFrom.ContainsKey(next))
@@ -69,10 +70,10 @@ public class FloodFill : MonoBehaviour
 
     private void DrawPath()
     {
-        Vector3Int tile = cameFrom[objective];
+        Vector3Int tile = cameFrom[objetivo];
         while (tile != startingPoint)
         {
-            tilemap.SetTile(tile, path);
+            tilemap.SetTile(tile, camino);
             tile = cameFrom[tile];
         }
     }

@@ -1,17 +1,16 @@
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class DetectCellLocation : MonoBehaviour
+public class Coords : MonoBehaviour
 {
     private Vector3 worldPosition;
     public GridLayout gridLayout;
     public Tilemap tilemap;
-    public TileBase origin;
-    public TileBase end;
-
-    public FloodFill startpoint, endpoint;
+    public TileBase inicio;
+    public TileBase final;
+    public FloodFill puntoInicio, puntoFinal;
 
     private void Update()
     {
@@ -27,9 +26,9 @@ public class DetectCellLocation : MonoBehaviour
             var actualTile = tilemap.GetTile(cellPosition);
             if (actualTile == null) { return; }
             Debug.Log("Origen " + cellPosition);
-            startpoint.startingPoint = cellPosition;
+            puntoInicio.startingPoint = cellPosition;
             TileFlags flags = tilemap.GetTileFlags(cellPosition);
-            tilemap.SetTile(cellPosition, origin);
+            tilemap.SetTile(cellPosition, inicio);
             tilemap.SetTileFlags(cellPosition, flags);
         }
 
@@ -38,9 +37,9 @@ public class DetectCellLocation : MonoBehaviour
             var actualTile = tilemap.GetTile(cellPosition);
             if (actualTile == null) { return; }
             Debug.Log("Destino " + cellPosition);
-            endpoint.objective = cellPosition;
+            puntoFinal.objetivo = cellPosition;
             TileFlags flags = tilemap.GetTileFlags(cellPosition);
-            tilemap.SetTile(cellPosition, end);
+            tilemap.SetTile(cellPosition, final);
             tilemap.SetTileFlags(cellPosition, flags);
         }
     }
