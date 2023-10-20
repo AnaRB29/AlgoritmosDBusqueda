@@ -2296,7 +2296,7 @@ MonoBehaviour:
   flood: {fileID: 11400000, guid: 84da81ddc83dc3a43b4947910f195f6c, type: 2}
   path: {fileID: 11400000, guid: c81fcb49d18c30f4f8b3ac11b9151dc3, type: 2}
   delay: 0
-  canstop: 0
+  canstop: 1
   canRun: 1
 --- !u!114 &224364736
 MonoBehaviour:
