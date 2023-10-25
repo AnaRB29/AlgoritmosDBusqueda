@@ -58,7 +58,7 @@ public class FloodFill : MonoBehaviour
         DrawPath();
     }
 
-    private List<Vector3Int> GetNeighbours(Vector3Int current)
+    public List<Vector3Int> GetNeighbours(Vector3Int current)
     {
         List<Vector3Int> neighbours = new List<Vector3Int>();
         neighbours.Add(current + new Vector3Int(0, 1, 0));
