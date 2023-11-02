@@ -6,11 +6,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
-
-public class Dijkstra : MonoBehaviour
+public class A : MonoBehaviour
 {
     public Vector3Int startingPoint;
-    public Vector3Int objetivo;
+    public Vector3Int EndPoint;
     public Set Reached = new Set();
     public FloodFill flood;
     public Tilemap tiles;
@@ -25,7 +24,7 @@ public class Dijkstra : MonoBehaviour
     private void Update()
     {
         startingPoint = flood.startingPoint;
-        objetivo = flood.objetivo;
+        EndPoint = flood.objetivo;
         if (Input.GetKeyDown("space"))
         {
             FloodFillCoroutine();
@@ -49,7 +48,7 @@ public class Dijkstra : MonoBehaviour
         while (Frontier.Count > 0)
         {
             var current = Frontier.Dequeue();
-            if (current == objetivo)
+            if (current == EndPoint)
             {
                 break;
             }
@@ -63,19 +62,21 @@ public class Dijkstra : MonoBehaviour
                     {
                         tiles.SetTile(neighbour, path2);
                         cost_so_far[neighbour] = new_cost;
+                        double priority = new_cost + Heuristic(EndPoint, neighbour);
                         Reached.Add(neighbour);
+                        Frontier.Enqueue(neighbour, priority);
                         came_from.Add(neighbour, current);
                     }
                 }
             }
         }
         DrawPath();
-        tiles.SetTile(objetivo, basePath);
+        tiles.SetTile(EndPoint, basePath);
     }
 
     private void DrawPath()
     {
-        var tile = came_from[objetivo];
+        var tile = came_from[EndPoint];
         while (tile != startingPoint)
         {
             tiles.SetTile(tile, basePath);
@@ -99,8 +100,10 @@ public class Dijkstra : MonoBehaviour
         }
         return 0;
     }
+
+    private double Heuristic(Vector3Int a, Vector3Int b)
+    {
+        return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y);
+    }
 }
-
-
-
 
